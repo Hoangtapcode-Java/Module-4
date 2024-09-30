@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Edit Category</h2>
+<form action="/blog/editCategory" method="post">
+  <table>
+    <tr>
+        <td><label>ID Category</label></td>
+        <td>
+            <input type="text" th:field="*{category.idCategory}" th:placeholder="${category.idCategory}" readonly>
+        </td>
+    </tr>
+      <tr>
+          <td><label>Name Category</label></td>
+          <td>
+              <input type="text" th:field="*{category.nameCategories}" th:placeholder="${category.nameCategories}">
+          </td>
+      </tr>
+      <tr>
+          <td><input type="submit" value="Edit"></td>
+          <td><input type="reset" value="Back"></td>
+      </tr>
+  </table>
+</form>
+</body>
+</html>

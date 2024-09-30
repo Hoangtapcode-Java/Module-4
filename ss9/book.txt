@@ -1,0 +1,6 @@
+MÀN HÌNH HIỂN THỊ : 
+	1. Danh sách các loại sách (thêm,sửu,xóa,edit,detail)
+		+ Detail : Xem nội dung sách và cho mượn sách
+		+ Cho người mượn dăng kí tài khoản  ->> Danh sách các loại sách
+			
+			*Đăng kí tài khoản cho thêm mã đăng kí (random)

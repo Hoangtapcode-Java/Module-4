@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<a href="/product">Home</a>
+<h1>List Cart</h1>
+<table border="1">
+    <tr>
+        <th>Name Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Position</th>
+    </tr>
+    <tr th:each="product : ${cart.productList}">
+        <td th:text="${product.getKey().nameProduct}"></td>
+        <td th:text="${product.getKey().price}"></td>
+        <td>
+            <a th:text="${'-'}" th:href="@{/product/deleteFromCart/{idProduct}(idProduct = ${product.getKey().idProduct})}"></a>
+            <span th:text="${product.getValue()}"></span>
+            <a th:text="${'+'}" th:href="@{/product/addToCart/{idProduct}(idProduct = ${product.getKey().idProduct})}"></a>
+        </td>
+        <td>
+            <button><a th:href="@{/product/cartProduct/deleteCartId/{idProduct}(idProduct = ${product.getKey().idProduct})}">Delete</a></button>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td style="color: red">Total: </td>
+        <td th:text="${cart.totalProduct()}"></td>
+    </tr>
+</table>
+</body>
+</html>

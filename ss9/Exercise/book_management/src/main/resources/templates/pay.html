@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/book/doPay" method="post">
+    <table>
+        <input type="hidden" name="id" th:value="${bookId.idBook}">
+        <tr>
+            <td><input type="submit" value="Pay"></td>
+            <td><input type="text" name="code"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

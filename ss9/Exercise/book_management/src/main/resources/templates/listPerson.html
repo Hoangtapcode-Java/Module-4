@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Danh sách người dùng</h1>
+<button><a href="/book/createPerson">Add new</a></button>
+<table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>YearOfBirth</th>
+      <th>Phone Number</th>
+      <th>Code</th>
+    </tr>
+    <tr th:each="listPerson :${listPerson}">
+        <td th:text="${listPerson.idPerson}"></td>
+        <td th:text="${listPerson.namePerson}"></td>
+        <td th:text="${listPerson.yearOfBirth}"></td>
+        <td th:text="${listPerson.phoneNumber}"></td>
+        <td th:text="${listPerson.randNumber}"></td>
+    </tr>
+</table>
+<button><a href="/book">List Book</a></button>
+</body>
+</html>

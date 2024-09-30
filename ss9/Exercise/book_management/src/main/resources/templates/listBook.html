@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Danh sách các loại sách</h1>
+<table>
+    <tr>
+        <td><button><a href="/book/createBook">Add new book</a></button></td>
+        <td><button><a href="/book/createPerson">Add new Person</a></button></td>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <th>ID Book</th>
+        <th>Name Book</th>
+        <th>Author</th>
+        <th>publishingYear</th>
+        <th>Amount</th>
+        <th colspan="2">Position</th>
+    </tr>
+    <tr th:each="listBook :${listBook}">
+        <td th:text="${listBook.idBook}"></td>
+        <td th:text="${listBook.nameBook}"></td>
+        <td th:text="${listBook.author}"></td>
+        <td th:text="${listBook.publishingYear}"></td>
+        <td th:text="${listBook.amount}"></td>
+        <td>
+            <button><a th:href="@{/book/borrow/{idBook}(idBook = ${listBook.idBook})}">Borrow</a></button>
+        </td>
+        <td>
+            <button><a th:href="@{/book/pay/{idBook}(idBook = ${listBook.idBook})}">Pay</a></button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

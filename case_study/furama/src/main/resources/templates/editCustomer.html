@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <script src="/bootstrap.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0px;
+        }
+
+        #header {
+            background-image: url("/z4096686608201_89d7ce9d78912b7013b5b5c2a828572c.jpg");
+            height: 200px;
+            width: 100%;
+        }
+
+        #header h1 {
+            padding: 50px;
+        }
+
+        #body{
+            margin: 20px;
+        }
+
+
+        #footer {
+            background-color: #EEEEEE;
+            padding: 30px;
+            height: 100px;
+            width: 100%;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <h1 style="text-align: center">RESORT FURAMA</h1>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Options</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/furama/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/furama/listCustomer">Customer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Employee</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown link
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="body">
+    <fieldset>
+        <legend style="font-weight: bold; font-family: Algerian; text-align: center">Edit Customer</legend>
+        <form class="row g-3" action="/furama/doEditCustomer" method="post" th:object="${customer}">
+            <div class="col-md-4">
+                <label for="inputId" class="form-label">Id Customer</label>
+                <input type="text" class="form-control" id="inputId" th:field="*{id}" th:readonly="${customer.id}">
+            </div>
+            <div class="col-md-6">
+                <label for="inputName" class="form-label">Name Customer</label>
+                <input type="text" class="form-control" id="inputName" th:field="*{nameCustomer}" th:placeholder="${customer.nameCustomer}">
+                <p style="color: red" th:if="${#fields.hasErrors('nameCustomer')}" th:errors="*{nameCustomer}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="inputDayOfBirth" class="form-label">DayOfBirth</label>
+                <input type="date" class="form-control" id="inputDayOfBirth" th:field="*{dayOfBirth}" th:placeholder="${customer.dayOfBirth}">
+                <p style="color: red" th:if="${#fields.hasErrors('dayOfBirth')}" th:errors="*{dayOfBirth}"></p>
+            </div>
+            <div class="col-12">
+                <label for="inputGender" class="form-label">Gender</label>
+                <input type="text" class="form-control" id="inputGender" th:field="*{gender}" th:placeholder="${customer.gender}">
+                <p style="color: red" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></p>
+            </div>
+            <div class="col-6">
+                <label for="inputIdCard" class="form-label">IdCard</label>
+                <input type="text" class="form-control" id="inputIdCard" th:field="*{idCard}" th:placeholder="${customer.idCard}">
+                <p style="color: red" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="inputPhoneNumber" class="form-label">PhoneNumber</label>
+                <input type="text" class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}" th:placeholder="${customer.phoneNumber}">
+                <p style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail" class="form-label">Email</label>
+                <input type="text" class="form-control" id="inputEmail" th:field="*{email}" th:placeholder="${customer.email}">
+                <p style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <div class="col-md-4">
+                <label for="inputCustomerType" class="form-label">CustomerType</label>
+                <select id="inputCustomerType" class="form-select" th:field="*{customerType}">
+                    <option th:each="customerType :${customerType}" th:text="${customerType.nameCustomerType}" th:value="${customerType.id}" th:placeholder="${customer.customerType}"></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label for="inputAddress" class="form-label">Address</label>
+                <input type="text" class="form-control" id="inputAddress" th:field="*{address}" th:placeholder="${customer.address}">
+                <p style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+        </form>
+    </fieldset>
+</div>
+<div id="footer">
+    <p style="text-align: center">© 2023 FuramaResort, Inc</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Danh Sách Các Blog</h2>
+
+<button><a href="/blog/createBlog">Create Blog</a></button>
+<form action="/blog/search" method="get">
+    <table>
+        <tr>
+            <td><input type="text" name="name"></td>
+            <td><input type="submit" value="Search"></td>
+        </tr>
+    </table>
+</form>
+<table border="1px">
+    <tr>
+        <th>Code Blog</th>
+        <th>Name Blog</th>
+        <th>Name Author</th>
+        <th>Date</th>
+        <th>Category</th>
+        <th colspan="3">Positions</th>
+        <th colspan="2">Category And Author</th>
+    </tr>
+    <tr th:each="blogList :${blogList}">
+        <td th:text="${blogList.id}"></td>
+        <td th:text="${blogList.name}"></td>
+        <td th:text="${blogList.author.nameAuthor}"></td>
+        <td th:text="${blogList.date}"></td>
+        <td th:text="${blogList.category.nameCategories}"></td>
+        <td>
+            <button><a th:href="@{/blog/detail/{id}(id = ${blogList.id})}">Details</a></button>
+        </td>
+        <td>
+            <button><a th:href="@{/blog/delete/{id}(id = ${blogList.id})}">Delete</a></button>
+        </td>
+        <td>
+            <button><a th:href="@{/blog/edit/{id}(id = ${blogList.id})}">Edit</a> </button>
+        </td>
+        <td>
+            <button>
+                <a href="/blog/categoryList">Category</a>
+            </button>
+        </td>
+        <td>
+            <button>
+                <a href="/blog/authorList">Author</a>
+            </button>
+        </td>
+    </tr>
+</table>
+<div>
+    <span>
+        <a th:if="${blogList.hasPrevious()}" th:href="@{/blog(page=${blogList.number-1})}">Previous</a>
+    </span>
+    <span>
+        <a th:text="${blogList.number + 1}"></a>/<a th:text="${blogList.totalPages}"></a>
+    </span>
+    <span>
+        <a th:if="${blogList.hasNext()}" th:href="@{/blog(page=${blogList.number+1})}">Next</a>
+    </span>
+</div>
+</body>
+</html>

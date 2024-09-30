@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Create Blog</h2>
+<form action="/blog/doCreateBlog" method="post" th:object="${blog}">
+    <table>
+        <tr>
+            <td><label>Name Blog</label></td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td><label>Name Author</label></td>
+            <td>
+                <select th:field="*{author}">
+                    <option th:each="author :${author}" th:text="${author.nameAuthor}" th:value="${author.idAuthor}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Date</label></td>
+            <td><input type="date" th:field="*{date}"></td>
+        </tr>
+        <tr>
+            <td><label>Descriptions</label></td>
+            <td><textarea th:field="*{descriptions}" cols="20" rows="10"></textarea></td>
+        </tr>
+        <tr>
+            <td><label>Category</label></td>
+            <td>
+                <select th:field="*{category}">
+                    <option th:each="category :${category}" th:text="${category.nameCategories}" th:value="${category.idCategory}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"></td>
+            <td><input type="reset" value="Reset"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

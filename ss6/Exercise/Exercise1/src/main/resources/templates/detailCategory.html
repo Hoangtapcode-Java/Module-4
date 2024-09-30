@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Detail Category</h2>
+<table border="1px">
+  <tr>
+    <th>ID</th>
+    <th>Name Blog</th>
+    <th>Position</th>
+  </tr>
+  <tr th:each="listBlog :${listBlog}">
+    <td th:text="${listBlog.id}"></td>
+    <td th:text="${listBlog.name}"></td>
+    <td><button><a th:href="@{/blog/detail/{id}(id = ${listBlog.id})}">Detail</a></button></td>
+  </tr>
+</table>
+</body>
+</html>

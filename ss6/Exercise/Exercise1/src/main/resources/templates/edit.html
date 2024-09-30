@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Edit</h2>
+<form action="/blog/doEdit" method="post">
+    <table>
+        <tr>
+            <td><label>Id Blog</label></td>
+            <td>
+                <input type="text" th:field="*{blog.id}" th:placeholder="${blog.id}" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Name Blog</label></td>
+            <td>
+                <input type="text"  th:placeholder="${blog.name}" th:field="*{blog.name}">
+            </td>
+        </tr>
+        <tr>
+            <td><label>Name Author</label></td>
+            <td>
+                <select th:field="*{blog.author}">
+                    <option th:each="author :${author}" th:text="${author.nameAuthor}" th:value="${author.idAuthor}" th:placeholder="${blog.author}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Date</label>
+            </td>
+            <td>
+                <input type="date" th:field="*{blog.date}" th:placeholder="${blog.date}">
+            </td>
+        </tr>
+        <tr>
+            <td><label>Category</label></td>
+            <td>
+                <select th:field="*{blog.category}">
+                    <option th:each="category :${category}" th:text="${category.nameCategories}" th:value="${category.idCategory}" th:placeholder="${blog.category}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Descriptions</label></td>
+            <td>
+                <textarea th:field="*{blog.descriptions}" th:value="${blog.descriptions}" rows="10" cols="20"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Edit">
+            </td>
+            <td>
+                <input type="reset" value="Reset">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

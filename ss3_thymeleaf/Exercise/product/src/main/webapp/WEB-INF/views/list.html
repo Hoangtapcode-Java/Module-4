@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .button a{
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover{
+            color: red;
+        }
+        .button{
+            margin-bottom: 30px;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: blue;
+        }
+
+        .options a{
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .options{
+            background-color: blue;
+            border-radius: 20px;
+        }
+
+        .options a:hover{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h3>Danh Sách Sản Phẩm</h3>
+
+<button class="button"><a href="/product/create">Create Product</a></button>
+
+<form action="/product/search" method="post">
+    <table>
+        <td>
+            <input type="text" name="name">
+        </td>
+        <td>
+            <input type="submit" value="Submit">
+        </td>
+    </table>
+</form>
+<table border="1px">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Producer</th>
+        <th colspan="2">Options</th>
+    </tr>
+    <tr th:each="productList : ${productList}">
+        <td th:text="${productList.idProduct}"></td>
+        <td th:text="${productList.nameProduct}"></td>
+        <td th:text="${productList.priceProduct}"></td>
+        <td th:text="${productList.description}"></td>
+        <td th:text="${productList.producer}"></td>
+        <td><button class="options"><a th:href="@{/product/delete/{idProduct}(idProduct = ${productList.idProduct})}">Delete</a></button></td>
+        <td><button class="options"><a th:href="@{/product/edit/{idProdut}(idProduct = ${productList.idProduct})}">Edit</a></button> </td>
+    </tr>
+</table>
+</body>
+</html>

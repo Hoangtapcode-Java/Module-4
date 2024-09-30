@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#button').click(function (event) {
+                let producer = $('#producer').val();
+                let model = $('#model').val();
+                let price = $('#price').val();
+                let newSmartPhone = {
+                    'producer': producer,
+                    'model': model,
+                    'price': price
+                };
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: 'POST',
+                    data: JSON.stringify(newSmartPhone),
+                    url: "http://localhost:8080/api/smartphones/create",
+                    success: successHandle //function (data) {
+                        // let content = '<tr>\n' +
+                        //     '<th>Producer</th>\n' +
+                        //     '<th>Model</th>\n' +
+                        //     '<th>Price</th>\n' +
+                        //     '<th>Delete</th>\n' +
+                        //     '</tr>';
+                        // for (let i = 0; i < data.length; i++) {
+                        //     content += getListSmartphones(data[i]);
+                        // }
+                        // document.getElementById("listSmartphones").innerHTML = content;
+                        // console.log(data)
+                        // alert("Them thanh cong")
+                    //}
+                })
+            })
+        })
+
+        function getListSmartphones(smartphones) {
+            console.log(smartphones.producer);
+            let l = `<tr><td>${smartphones.producer}</td><td>${smartphones.model}</td><td>${smartphones.price}
+                    </td><td><button data="${smartphones.id}" onclick="myFunction(this.getAttribute('data'))">Delete</button></td>
+                    <td><button><a href="/smartphones/edit/${smartphones.id}">Edit</a></button></td></tr>`
+            console.log(l);
+            return l;
+            // return '<tr><td>${smartphones.producer}</td><td>${smartphones.model}</td><td>${smartphones.price}</td>' +
+            //     '<td><button th:data="${smartphones.id}" onclick="myFunction(this.getAttribute("data"))">Delete</button></td></tr>';
+        };
+
+        function successHandle(){
+            $.ajax({
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type:"GET",
+                url: "http://localhost:8080/api/smartphones/",
+                success: function (data) {
+                    let content = '<tr>\n' +
+                        '<th>Producer</th>\n' +
+                        '<th>Model</th>\n' +
+                        '<th>Price</th>\n' +
+                        '<th>Delete</th>\n' +
+                        '<th>Edit</th>'+
+                        '</tr>';
+                    for (let i = 0; i < data.length; i++) {
+                        content += getListSmartphones(data[i]);
+                    }
+                    document.getElementById("listSmartphones").innerHTML = content;
+                }
+            })
+        }
+
+        function myFunction(smartphonesId) {
+            // let a = $(this);
+            // let smartphonesId = a.attr('href');
+
+            //$(this) -- --thực thi với element hiện tại đang trỏ tới
+            //.attr('') --lấy giá trị hoặc gán giá trị cho thuộc tính (attribute).
+            console.log(smartphonesId)
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: 'DELETE',
+                url: 'http://localhost:8080/api/smartphones/delete/' + smartphonesId,
+                success: successHandle
+            })
+        }
+
+    </script>
+</head>
+<body>
+<h1>Danh sách Phone</h1>
+<table>
+    <tr>
+        <td>Producer:</td>
+        <td><input type="text" id="producer"></td>
+    </tr>
+    <tr>
+        <td>Model:</td>
+        <td><input type="text" id="model"></td>
+    </tr>
+    <tr>
+        <td>Price:</td>
+        <td><input type="number" id="price"></td>
+    </tr>
+    <tr>
+        <td><input type="button" value="Create" id="button"></td>
+    </tr>
+</table>
+<table border="1" id="listSmartphones">
+    <tr>
+        <th>Producer</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>Delete</th>
+        <th>Edit</th>
+    </tr>
+    <tr th:each="smartphones :${listPhone}">
+        <td th:text="${smartphones.producer}"></td>
+        <td th:text="${smartphones.model}"></td>
+        <td th:text="${smartphones.price}"></td>
+        <td>
+            <button th:data="${smartphones.id}"
+                    onclick="myFunction(this.getAttribute('data'))">Delete
+            </button>
+        </td>
+        <td>
+            <button>
+                <a th:href="@{/smartphones/edit/{id}(id = ${smartphones.id})}">Edit</a>
+            </button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

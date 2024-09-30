@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Create Book</h1>
+<form action="/book/doCreateBook" method="post" th:object="${book}">
+    <table>
+        <tr>
+            <td>Name Book</td>
+            <td><input type="text" th:field="*{nameBook}"></td>
+        </tr>
+        <tr>
+            <td>
+                Content
+            </td>
+            <td>
+                <textarea th:field="*{content}"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Author
+            </td>
+            <td>
+                <input type="text" th:field="*{author}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                PublishingYear
+            </td>
+            <td>
+                <input type="date" th:field="*{publishingYear}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Amounts
+            </td>
+            <td>
+                <input type="text" th:field="*{amount}">
+            </td>
+        </tr>
+        <tr>
+            <td>Person</td>
+            <td>
+                <select th:field="*{idPerson}">
+                    <option th:each="listPerson :${person}" th:text="${listPerson.namePerson}"th:value="${listPerson.idPerson}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Create">
+            </td>
+            <td>
+                <input type="reset" value="Back">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

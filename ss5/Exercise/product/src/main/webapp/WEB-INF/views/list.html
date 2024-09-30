@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Danh sách sản phẩm</h3>
+
+<button><a href="/product/create">Create</a></button>
+
+<form action="/product/search" method="get">
+    <table>
+        <tr>
+            <td><input type="text" name="nameProduct"></td>
+            <td><input type="submit" value="Search"></td>
+        </tr>
+    </table>
+</form>
+<table border="1px">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Descriptions</th>
+        <th>Producer</th>
+        <th colspan="2">Positions</th>
+    </tr>
+    <tr th:each="productList :${productList}">
+        <td th:text="${productList.idProduct}"></td>
+        <td th:text="${productList.nameProduct}"></td>
+        <td th:text="${productList.priceProduct}"></td>
+        <td th:text="${productList.description}"></td>
+        <td th:text="${productList.producer}"></td>
+        <td><button><a th:href="@{/product/delete/{idProduct}(idProduct = ${productList.idProduct})}">Delete</a></button></td>
+        <td><button><a th:href="@{/product/edit/{idProduct}(idProduct = ${productList.idProduct})}">Edit</a></button></td>
+    </tr>
+</table>
+</body>
+</html>

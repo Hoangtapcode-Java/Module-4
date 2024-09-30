@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Danh sách Blog AJAX</h1>
+<table>
+    <td>
+        <input type="text" id="name">
+    </td>
+    <td>
+        <input type="button" value="search" id="search">
+    </td>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#search').click(function (event) {
+            let name = $('#name').val();
+            console.log(name)
+            $.ajax({
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: "GET",
+                url: "http://localhost:8080/api/blog/search/" + name,
+                success: function (data) {
+                    let content = '<tr>\n' +
+                        '<th>Code Blog</th>\n' +
+                        '<th>Name Blog</th>\n' +
+                        '<th>Name Author</th>\n' +
+                        '<th>Date</th>\n' +
+                        '<th>Category</th>' +
+                        '</tr>';
+                    for (let i = 0; i < data.length; i++) {
+                        content += getListBlog(data[i]);
+                    }
+                    document.getElementById("listBlog").innerHTML = content;
+                    console.log(data)
+                    alert("Tim Thanh Cong")
+                }
+            })
+        })
+    })
+
+    function getListBlog(listBlog) {
+        let l = `<tr><td>${listBlog.id}</td><td>${listBlog.name}</td><td>${listBlog.author.nameAuthor}</td>
+                     <td>${listBlog.date}</td><td>${listBlog.category.nameCategories}</td></tr>`
+        console.log(l);
+        return l;
+    };
+
+    $(document).ready(function () {
+        $('#More').click(function (event) {
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "GET",
+                url: "http://localhost:8080/api/blog/findAll",
+                success: function (data) {
+                    let content = '<tr>\n' +
+                        '<th>Code Blog</th>\n' +
+                        '<th>Name Blog</th>\n' +
+                        '<th>Name Author</th>\n' +
+                        '<th>Date</th>\n' +
+                        '<th>Category</th>' +
+                        '</tr>';
+                    for (let i = 0; i < data.length; i++) {
+                        content += getListBlog(data[i]);
+                    }
+                    document.getElementById("listBlog").innerHTML = content;
+                }
+            })
+        })
+    })
+
+</script>
+<table border="1" id="listBlog">
+    <tr>
+        <th>Code Blog</th>
+        <th>Name Blog</th>
+        <th>Name Author</th>
+        <th>Date</th>
+        <th>Category</th>
+    </tr>
+    <tr th:each="blogList :${blogList}">
+        <td th:text="${blogList.id}"></td>
+        <td th:text="${blogList.name}"></td>
+        <td th:text="${blogList.author.nameAuthor}"></td>
+        <td th:text="${blogList.date}"></td>
+        <td th:text="${blogList.category.nameCategories}"></td>
+    </tr>
+</table>
+<button id="More">More</button>
+</body>
+</html>
